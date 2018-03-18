@@ -1,5 +1,3 @@
-mysql+mysqlconnector://root:password@database:3306/raw_cr
-
 db_user = 'root'
 db_password = 'password'
 db_host = 'database' # IP Address or hostname of where the MySQL database is deployed

@@ -13,13 +13,12 @@ services:
       MYSQL_DATABASE: raw_cr
     expose:
       - 3306
-    # network_mode: "host"
 
-  flask:
+  default-cr:
     restart: always
     build: .
     image: default-cr
-    command: gunicorn -b 0.0.0.0:8000 --worker-class gthread -w 1 --threads 1 app:app
+    command: ["gunicorn", "-b", "0.0.0.0:8000", "--worker-class", "gthread", "-w", "1", "--threads", "1", "app:app"]
     depends_on:
       - database
     links:
@@ -27,7 +26,6 @@ services:
     expose: 
       - 8000
       - 443
-    # network_mode: "host"
 
   server:
     restart: always
@@ -35,9 +33,8 @@ services:
     volumes:
       - ./nginx:/etc/nginx/conf.d
     depends_on:
-      - flask
+      - default-cr
     links:
-      - flask:flask
+      - default-cr:default-cr
     ports:
       - "80:80"
-    # network_mode: "host"
