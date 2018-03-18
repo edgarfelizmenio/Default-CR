@@ -15,7 +15,7 @@ class Patient(Resource):
 
     def put(self, patient_id):
         if models.update_patient(patient_id, request.form):
-            return '', 200
+            return patient_id, 200
         return {'status': 404, 'message': 'Patient with id={} not found.'.format(patient_id)}
     
     def delete(self, patient_id):
