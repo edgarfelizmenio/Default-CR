@@ -11,21 +11,24 @@ services:
       MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: raw_cr
+      MYSQL_TCP_PORT: 3307
     expose:
-      - 3306
+      - 3307
+    network_mode: "host"
 
   default-cr:
     restart: always
     build: .
     image: default-cr
-    command: ["gunicorn", "-b", "0.0.0.0:8000", "--worker-class", "gthread", "-w", "1", "--threads", "1", "app:app"]
+    command: ["gunicorn", "-b", "127.0.0.1:8000", "--worker-class", "gthread", "-w", "1", "--threads", "1", "app:app"]
     depends_on:
       - database
-    links:
-      - database
+    # links:
+    #   - database
     expose: 
       - 8000
       - 443
+    network_mode: "host"
 
   server:
     restart: always
@@ -34,7 +37,8 @@ services:
       - ./nginx:/etc/nginx/conf.d
     depends_on:
       - default-cr
-    links:
-      - default-cr:default-cr
+    # links:
+    #   - default-cr:default-cr
     ports:
       - "80:80"
+    network_mode: "host"
