@@ -1,23 +1,9 @@
 from flask import Flask
 from flask_restful import Api
+import config
 
 app=Flask(__name__)
 api = Api(app)
-# import data model
-
-# import rest api
-
-# from flask_restful import Resource, Api
-
-
-
-# class Patient(Resource):
-#     def get(self):
-#         return {'paktu':'ka'}
-
-# api.add_resource(Patient, '/patient')
-
-
 
 import database
 

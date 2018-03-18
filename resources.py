@@ -26,7 +26,6 @@ class Patient(Resource):
 class AddPatient(Resource):
     def post(self):
         data = request.form
-        print(str(data))
         patient_id = models.create_patient(data)
         if patient_id is None:
             return {'status': 400, 'message': 'Insufficient Data'}
