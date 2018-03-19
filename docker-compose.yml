@@ -1,5 +1,13 @@
 version: '3'
 
+# volumes:
+#   db-data:
+#     driver: local
+#     driver_opts:
+#       type: "nfs"
+#       o: "addr=127.0.0.1,nolock,soft,rw"
+#       device: ":/CS300-Data"
+
 services:
 
   database:
@@ -7,6 +15,7 @@ services:
     restart: always
     volumes:
       - ./raw_cr.sql:/docker-entrypoint-initdb.d/raw_cr.sql
+      # - db-data:/var/lib/mysql
     environment:
       MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: password
